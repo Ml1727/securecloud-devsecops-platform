@@ -13,5 +13,30 @@ services:
       - ./app/database/init:/docker-entrypoint-initdb.d
       - postgres_data:/var/lib/postgresql/data
 
+  backend:
+    build: ./app/backend
+    container_name: securecloud-backend
+    restart: always
+    environment:
+      PORT: 5000
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: securecloud
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+    ports:
+      - "5000:5000"
+    depends_on:
+      - postgres
+
+  frontend:
+    build: ./app/frontend
+    container_name: securecloud-frontend
+    restart: always
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+
 volumes:
   postgres_data:
