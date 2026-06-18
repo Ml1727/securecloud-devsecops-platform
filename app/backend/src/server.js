@@ -2,9 +2,11 @@ const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
 const morgan = require("morgan");
+
 require("dotenv").config();
 
 const healthRoutes = require("../routes/healthRoutes");
+const employeeRoutes = require("../routes/employeeRoutes");
 
 const app = express();
 
@@ -14,6 +16,7 @@ app.use(morgan("dev"));
 app.use(express.json());
 
 app.use("/api/health", healthRoutes);
+app.use("/api/employees", employeeRoutes);
 
 const PORT = process.env.PORT || 5000;
 
