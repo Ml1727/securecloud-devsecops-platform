@@ -1,5 +1,35 @@
 services:
 
+  jenkins:
+    image: jenkins/jenkins:lts
+    container_name: securecloud-jenkins
+    restart: always
+    user: root
+    ports:
+      - "8082:8080"
+      - "50000:50000"
+    volumes:
+      - jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:latest
+    container_name: securecloud-cadvisor
+    restart: always
+    ports:
+      - "8081:8080"
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker:/var/lib/docker:ro
+  node-exporter:
+    image: prom/node-exporter:latest
+    container_name: securecloud-node-exporter
+    restart: always
+    ports:
+      - "9100:9100"
+
   prometheus:
     image: prom/prometheus
     container_name: securecloud-prometheus
@@ -70,4 +100,4 @@ services:
 
 volumes:
   postgres_data:
-
+  jenkins_home:
