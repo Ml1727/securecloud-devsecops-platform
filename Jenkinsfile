@@ -2,15 +2,15 @@ pipeline {
     agent any
 
     stages {
-        stage('Build Containers') {
+        stage('Build App Containers') {
             steps {
-                sh 'docker-compose -p securecloud-devsecops-platform build'
+                sh 'docker-compose -p securecloud-devsecops-platform -f docker-compose.jenkins.yml build'
             }
         }
 
-        stage('Deploy Containers') {
+        stage('Deploy App Containers') {
             steps {
-                sh 'docker-compose -p securecloud-devsecops-platform up -d'
+                sh 'docker-compose -p securecloud-devsecops-platform -f docker-compose.jenkins.yml up -d'
             }
         }
 
