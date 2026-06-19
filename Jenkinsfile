@@ -10,13 +10,13 @@ pipeline {
 
         stage('Build Containers') {
             steps {
-               sh 'docker-compose build'
+              sh 'docker-compose -p securecloud-devsecops-platform build'
             }
         }
 
         stage('Deploy Containers') {
             steps {
-                sh 'docker-compose up -d'
+                sh 'docker-compose -p securecloud-devsecops-platform up -d'
             }
         }
 
