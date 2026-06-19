@@ -16,8 +16,9 @@ pipeline {
 
         stage('Health Check') {
             steps {
-                sh 'curl -f http://localhost:5000/api/health'
-                sh 'curl -f http://localhost:8080'
+                sh 'sleep 10'
+                sh 'curl -f http://securecloud-backend:5000/api/health'
+                sh 'curl -f http://securecloud-frontend:80'
                 sh 'docker ps'
             }
         }
