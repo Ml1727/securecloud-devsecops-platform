@@ -2,34 +2,16 @@ pipeline {
     agent any
 
     stages {
-        stage('Pull Code') {
+        stage('Deploy From EC2 Project Folder') {
             steps {
-                echo 'Code already available in Jenkins workspace'
-            }
-        }
-
-        stage('Build Containers') {
-            steps {
-              sh 'docker-compose -p securecloud-devsecops-platform build'
-            }
-        }
-
-        stage('Deploy Containers') {
-            steps {
-                sh 'docker-compose -p securecloud-devsecops-platform up -d'
-            }
-        }
-
-        stage('Check Containers') {
-            steps {
-                sh 'docker ps'
-            }
-        }
-
-        stage('Health Check') {
-            steps {
-                sh 'curl -f http://localhost:5000/api/health'
-                sh 'curl -f http://localhost:8080'
+                sh '''
+                cd /home/ubuntu/securecloud-devsecops-platform
+                git pull origin main
+                docker compose up -d --build
+                docker ps
+                curl -f http://localhost:5000/api/health
+                curl -f http://localhost:8080
+                '''
             }
         }
     }
