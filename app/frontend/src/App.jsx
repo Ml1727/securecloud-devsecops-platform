@@ -5,7 +5,7 @@ function App() {
   const [employees, setEmployees] = useState([]);
 
   useEffect(() => {
-    fetch("https://fuzzy-fiesta-7vwr6r4q9v7w2ppq4-5000.app.github.dev/api/employees")
+    fetch("http://98.93.46.142:5000/api/employees")
       .then((res) => res.json())
       .then((data) => setEmployees(data))
       .catch((error) => console.error("Error fetching employees:", error));
