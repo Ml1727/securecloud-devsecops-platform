@@ -13,3 +13,4 @@ dist/
 build/
 coverage/
 _pycache_/
+*.tar
