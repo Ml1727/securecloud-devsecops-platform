@@ -22,13 +22,23 @@ jobs:
         with:
           node-version: 24
 
-      - name: Install app dependencies
-        working-directory: ./app
+      # Backend
+      - name: Install Backend Dependencies
+        working-directory: ./app/backend
         run: npm install
 
-      - name: Run tests if available
-        working-directory: ./app
+      - name: Test Backend
+        working-directory: ./app/backend
         run: npm test --if-present
 
-      - name: CI completed
-        run: echo "SecureCloud CI pipeline completed successfully"
+      # Frontend
+      - name: Install Frontend Dependencies
+        working-directory: ./app/frontend
+        run: npm install
+
+      - name: Test Frontend
+        working-directory: ./app/frontend
+        run: npm test --if-present
+
+      - name: CI Pipeline Completed
+        run: echo "SecureCloud CI pipeline completed successfully!"
