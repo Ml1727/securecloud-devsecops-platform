@@ -1,0 +1,27 @@
+name: Docker Image Build
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  docker-build:
+    name: Build Docker Images
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Build backend Docker image
+        run: docker build -t securecloud-backend ./app/backend
+
+      - name: Build frontend Docker image
+        run: docker build -t securecloud-frontend ./app/frontend
+
+      - name: Docker build completed
+        run: echo "Backend and frontend Docker images built successfully"
