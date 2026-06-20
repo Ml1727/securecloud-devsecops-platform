@@ -20,13 +20,15 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
 
-      - name: Install dependencies
+      - name: Install app dependencies
+        working-directory: ./app
         run: npm install
 
-      - name: Check project files
-        run: |
-          echo "Checking project structure..."
-          ls -la
-          echo "CI pipeline completed successfully"
+      - name: Run tests if available
+        working-directory: ./app
+        run: npm test --if-present
+
+      - name: CI completed
+        run: echo "SecureCloud CI pipeline completed successfully"
